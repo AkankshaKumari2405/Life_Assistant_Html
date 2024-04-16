@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Life Assistant</title>
+        <style>
+            *{
+                margin : 0;
+                padding : 0;
+                font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            }
+            .header{
+                min-height: 100vh;
+                width: 100%;
+                background-color: rgb(0, 0, 0);
+            }
+            nav{
+                display: flex;
+                padding: 10px 0;
+                background-color: #131313;
+                justify-content: space-between;
+                align-items: center;
+                position: fixed;
+                width: 100%;
+                top: 0;
+                z-index: 1000; 
+            }
+            .nav-header{
+                color:white;
+                margin-left: 10px;
+            }
+            .nav-header:hover{
+                color:#f44336;
+            }
+            .nav-links{
+                flex: 1;
+                text-align: right;
+            }
+            .nav-links ul li{
+                list-style: none;
+                display: inline-block;
+                padding: 8px 12px;
+                position: relative;
+                margin-right: 10px;
+            }
+            .nav-links ul li a{
+                color: #fff;
+                text-decoration: none;
+                font-size: 13px;
+            }
+            .nav-links ul li::after{
+                content: "";
+                width : 0%;
+                height : 2px;
+                background: #f44336;
+                display: block;
+                margin: auto;
+                transition: 0.5s;
+            }
+            .nav-links ul li:hover::after{
+                width: 100%;
+            }
+            .text-box{
+                width: 90%;
+                color: #fff;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: center;
+            }
+            .text-box h1{
+                font-size: 62px;
+            }
+            .text-box p{
+                margin: 60px 0 40px;
+                font-size: 14px;
+                color: #fff;
+                padding-bottom: 50px;
+            }
+            .btn{
+                display: inline-block;
+                text-decoration: none;
+                color:#fff;
+                border: 1px solid #fff;
+                padding: 12px 34px;
+                font-size: 13px;
+                background: transparent;
+                position: relative;
+                cursor: pointer;
+            }
+            .btn:hover{
+                border: 1px solid #f44336;
+                background-color: #f44336;
+                transition: 1s;
+            }
+            
+            .features{
+                background-color: black;
+                margin: auto;
+                text-align: center;
+                padding-top: 50px;
+                color: white
+            }
+            .features h1{
+                margin-top: 60px;
+                font-size: 50px;
+            }
+            .features p{
+                margin: 60px 0 100px;
+                font-size: 14px;
+                color: #fff;
+            }
+            .box{
+                width: 200px;
+                padding: 20px;
+                margin: 20px;
+                border: 1px solid white;
+                text-align: center;
+                display: inline-block;
+                background: transparent;
+                cursor: pointer;
+                margin-bottom: 80px;
+            }
+            .box:hover {
+                background-color: #f44336;
+                transition: background-color 0.5s; 
+            }
+            .contact{
+                background-color: black;
+                margin: auto;
+                text-align: center;
+                padding-top: 50px;
+                color: white;
+            }
+            .contact h1{
+                margin-top:30px;
+                font-size: 50px;
+            }
+            .contact p{
+                margin: 30px 0 30px;
+                font-size: 14px;
+                color: #fff;
+                padding-bottom: 30px;
+            }
+            .inquiry {
+                background-color: rgba(255, 255, 255, 0.1);
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+                max-width: 500px;
+                margin: 0 auto;
+                margin-bottom: 30px;
+            }
+            .input_field {
+                margin-bottom: 20px;
+            }
+            input[type="text"],textarea {
+                width: 100%;
+                padding: 10px;
+                border: none;
+                border-radius: 5px;
+                background-color: rgba(255, 255, 255, 0.1);
+                color: white;
+                box-sizing: border-box;
+            }
+            input[type="submit"] {
+                background-color: transparent;
+                color: white;
+                padding: 10px 20px;
+                border: 1px solid white;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+            }
+            input[type="submit"]:hover {
+                background-color: #f44336;
+            }
+            textarea {
+                resize: vertical;
+                height: 150px;
+            }
+            ::placeholder {
+                color: #ccc;
+            }
+            #error_message { 
+                margin-bottom: 20px; 
+                background: #fe8b8e; 
+                padding: 0px; 
+                text-align: center; 
+                font-size: 14px; 
+                transition: all 0.5s ease; 
+            }
+            .contact-info {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            }
+            .contact-info hr {
+                width: 100%;
+                margin: 0 10px;
+                border: 1px solid white;
+            }
+            .contact-info a {
+                color: white;
+                text-decoration: none;
+                margin: 0 10px;
+                font-size: 30px;
+            }
+            .contact-info a:hover {
+                color: #f44336;
+            }   
+        </style>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    </head>
+    <body>
+        <section class = "header" id = "header">
+            <nav>
+                <div class = "nav-header">
+                    <p>Life Assistant</p>
+                </div>
+                <div class = "nav-links">
+                    <ul>
+                        <li><a href = "#header">Home</a></li>
+                        <li><a href = "#features">Features</a></li>
+                        <li><a href = "#contact">Contact</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <div class = "text-box">
+                <h1>Welcome to Life Assistant</h1>
+                <p>A web-based life assistant application built with HTML, CSS and Javascript that offers a to-do list,<br> 
+                    clock, notes section, and calendar to improve your organisation, productivity, 
+                    and personal growth.</p>
+                <a href = "#features" class = "btn">Explore</a>
+            </div>
+        </section>
+        <section class = "features" id = "features">
+            <h1>Features</h1>
+            <p>Effortlessly manage tasks with a to-do list, stay punctual with a 
+                clock feature,<br> jot down thoughts in the notes section, and keep 
+                track of events with a calendar—<br>all designed to boost your organization and productivity.</p>
+                
+            <div class = "box" onclick = "window.location.href = 'clock.html';">
+                <h2>Clock</h2>
+                <p>Effortlessly manage your time by staying aware of the current
+                    time and setting alarms or reminders.</p>
+            </div>
+            
+            <div class = "box" onclick = "window.location.href = 'calendar.html';">
+                <h2>Calendar</h2>
+                <p>Stay organized and never miss an important event or deadline by 
+                    managing your schedule effectively. </p>
+            </div>
+            
+            <div class = "box" onclick = "window.location.href = 'todo.html';">
+                <h2>To-Do List</h2>
+                <p>Organize your tasks, set priorities, and stay on top of your responsibilities 
+                    with a flexible to-do list.</p>
+            </div>
+            
+            <div class = "box" onclick = "window.location.href = 'notes.html';">
+                <h2>Notes</h2>
+                <p>Capture ideas, thoughts, and important information in a convenient digital notebook that's always accessible.</p>
+            </div>
+        </section>
+        <section class = "contact" id = "contact">
+            <h1>Contact Us</h1>
+            <p>In case of any inquiries, kindly fill the below form</p>
+            <div class = "inquiry">
+                <div id="error_message"></div> 
+                <form action="" id="myform" onsubmit = "return validate();"> 
+                    <div class="input_field"> 
+                        <input type="text" placeholder="Name" id="name"> 
+                    </div> 
+                    <div class="input_field"> 
+                        <input type="text" placeholder="Subject" id="subject"> 
+                    </div> 
+                    <div class="input_field"> 
+                        <input type="text" placeholder="Phone" id="phone"> 
+                    </div> 
+                    <div class="input_field"> 
+                        <input type="text" placeholder="Email" id="email"> 
+                    </div> 
+                    <div class="input_field"> 
+                        <textarea placeholder="Message" id="message"></textarea> 
+                    </div> 
+                    <div class="button"> 
+                        <input type="submit" onsubmit="clear()"> 
+                    </div> 
+                </form> 
+            </div>
+            <div class="contact-info">
+                <a href="mailto:akanksha.kumari2405@gmail.com"><i class="far fa-envelope"></i></a>
+                <a href="https://www.instagram.com/akanksha_kumari.24/"><i class="fab fa-instagram"></i></a>
+            </div>
+        </section>
+        <script>
+            function validate() { 
+                let name = document.getElementById("name").value; 
+                let subject = document.getElementById("subject").value; 
+                let phone = document.getElementById("phone").value; 
+                let email = document.getElementById("email").value; 
+                let message = document.getElementById("message").value; 
+                let error_message = document.getElementById("error_message"); 
+                error_message.style.padding = "10px"; 
+                let errors = []; 
+                if (name.length < 5) { 
+                    errors.push("Please Enter a valid Name");} 
+                if (isNaN(phone) || phone.length != 10) { 
+                    errors.push("Please Enter a valid Phone Number");} 
+                if (email.indexOf("@") == -1 || email.length < 6) { 
+                    errors.push( "Please Enter a valid Email");} 
+                if (message.length <= 5) { 
+                    errors.push( "Please Enter More Than 5 Characters");} 
+                if (errors.length > 0) { 
+                    error_message.innerHTML = errors.join("<br>"); 
+                    return false;
+                } 
+                else { 
+                    alert( "Form Submitted Successfully!"); 
+                    location.reload();
+                    return true;
+                }
+            }
+            </script>
+    </body>
+</html>

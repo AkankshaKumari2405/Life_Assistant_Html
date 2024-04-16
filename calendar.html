@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Calendar</title>
+        <style>
+            *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            }
+            body{
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            justify-content: center;
+            min-height: 100vh;
+            background: #711197;
+            }
+            .wrapper{
+            width: 450px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+            }
+            h1{
+                text-align: center;
+                margin: 1em 1em 1em 1em;
+                background-color: #711197;
+                color: white;
+                border-radius: 1em;
+            }
+            .wrapper header{
+            display: flex;
+            align-items: center;
+            padding: 25px 30px 10px;
+            justify-content: space-between;
+            }
+            header .icons{
+            display: flex;
+            }
+            header .icons span{
+            height: 38px;
+            width: 38px;
+            margin: 0 1px;
+            cursor: pointer;
+            color: #878787;
+            text-align: center;
+            line-height: 38px;
+            font-size: 1.9rem;
+            user-select: none;
+            border-radius: 50%;
+            }
+            .icons span:last-child{
+            margin-right: -10px;
+            }
+            header .icons span:hover{
+            background: #f2f2f2;
+            }
+            header .cur_date{
+            font-size: 1.45rem;
+            font-weight: 500;
+            }
+            .calendar{
+            padding: 20px;
+            }
+            .calendar ul{
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            text-align: center;
+            }
+            .calendar .days{
+            margin-bottom: 20px;
+            }
+            .calendar li{
+            color: #333;
+            width: calc(100% / 7);
+            font-size: 1.07rem;
+            }
+            .calendar .weeks li{
+            font-weight: 500;
+            cursor: default;
+            }
+            .calendar .days li{
+            z-index: 1;
+            cursor: pointer;
+            position: relative;
+            margin-top: 30px;
+            }
+            .days li.inactive{
+            color: #aaa;
+            }
+            .days li.active{
+            color: #fff;
+            }
+            .days li::before{
+            position: absolute;
+            content: "";
+            left: 50%;
+            top: 50%;
+            height: 40px;
+            width: 40px;
+            z-index: -1;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            }
+            .days li.active::before{
+            background: #711197;
+            }
+            .days li:not(.active):hover::before{
+            background: #f2f2f2;
+            }
+        </style>
+    </head>
+    <body>
+        <div class = "wrapper">
+            <h1>CALENDAR</h1>
+            <header>
+                <p class = "cur_date"></p>
+                <div class="icons">
+                    <span id="prev" class="material-symbols-rounded"><</span>
+                    <span id="next" class="material-symbols-rounded">></span>
+                </div>
+            </header>
+            <div class = "calendar">
+                <ul class = "weeks">
+                    <li>Sun</li>
+                    <li>Mon</li>
+                    <li>Tue</li>
+                    <li>Wed</li>
+                    <li>Thu</li>
+                    <li>Fri</li>
+                    <li>Sat</li>
+                </ul>
+                <ul class="days"></ul>
+            </div>
+        </div>
+        <script>
+            const daytag = document.querySelector(".days");
+            const curdate = document.querySelector(".cur_date");
+            const prevnext = document.querySelectorAll(".icons span");
+            let date = new Date();
+            let year = date.getFullYear();
+            let month = date.getMonth();
+            const months = ["January", "February", "March", "April", "May", "June", "July",
+            "August", "September", "October", "November", "December"];
+            const cal = () => {
+                let firstday = new Date(year, month, 1).getDay();
+                let lastdate = new Date(year, month+1, 0).getDate();
+                let lastday = new Date(year, month, lastdate).getDay();
+                let lastdaylastmonth = new Date(year, month, 0).getDate();
+                let litag = "";
+                for(let i = firstday; i > 0; i--){
+                    litag += `<li class="inactive">${lastdaylastmonth - i + 1}</li>`;
+                }
+                for(let i = 1; i <= lastdate; i++){
+                    let today = i === date.getDate() && month === new Date().getMonth() && year === new Date().getFullYear() ? "active" : "";
+                    litag += `<li class="${today}">${i}</li>`;
+                }
+                for(let i = lastday; i < 6; i++){
+                    litag += `<li class="inactive">${i - lastday + 1}</li>`;
+                }
+                curdate.innerText = `${months[month]} ${year}`; 
+                daytag.innerHTML = litag;
+            }
+            cal();
+            prevnext.forEach(icon => {
+                icon.addEventListener("click", () => {
+                    month = icon.id === "prev" ? month - 1 : month + 1;
+                    if(month < 0 || month > 11){
+                        date = new Date(year, month, new Date().getDate());
+                        year = date.getFullYear();
+                        month = date.getMonth();
+                    }else{
+                        date = new Date();
+                    }
+                    cal();
+                });
+            });
+        </script>
+    </body>
+</html>

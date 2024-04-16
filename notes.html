@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <title>Notes App</title>
+        <style>
+            body {
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                background-color: #618cf8;
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                max-width: 600px;
+                margin: 20px auto;
+                background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+            }
+            h2{
+                text-align: center;
+                background-color: #618cf8;
+                padding: 10px;
+                border-radius: 8px;
+                margin-bottom: 30px;
+            }
+            #newinput{
+                padding: 10px;
+                font-size: 20px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                margin-bottom: 30px;
+                width: 96%;
+                border: 1px solid black;
+            }
+            .note {
+                margin-top: 30px;
+                margin-bottom: 10px;
+                padding: 40px;
+                text-align: start;
+                border-radius: 5px;
+                border: 1px solid black;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+                position: relative;
+            }
+            #addnote{
+                background-color: #618cf8;
+                border : none;
+                border-radius: 10px;
+                padding : 0.9em 1em;
+                display: block;
+                font-size: 15px;
+            }
+            .note-content {
+                margin-bottom: 10px;
+            }
+            #deleteid{
+                background-color: #618cf8;
+                border : none;
+                border-radius: 5px;
+                display: block;
+                font-size: 15px;
+                float:right;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h2>NOTES</h2>
+            <input type="text" id="newinput" placeholder="Enter your note...">
+            <button id="addnote" onclick="addnote()"><b>ADD NOTE</b></button>
+            <div id="allnotes"></div>
+        </div>
+        <script>
+            function addnote() {
+                const content = document.getElementById('newinput').value.trim();
+                if (content) {
+                    const element = document.createElement('div');
+                    element.classList.add('note');
+                    const contentele = document.createElement('p');
+                    contentele.classList.add('note-content');
+                    contentele.textContent = content;
+                    const deletebutton = document.createElement('button');
+                    deletebutton.textContent = 'Delete';
+                    deletebutton.id = "deleteid"
+                    deletebutton.onclick = function() {
+                        element.remove();
+                    };
+                    element.appendChild(contentele);
+                    element.appendChild(deletebutton);
+                    document.getElementById('allnotes').appendChild(element);
+                    document.getElementById('newinput').value = '';
+                }
+            }
+        </script>
+    </body>
+</html>

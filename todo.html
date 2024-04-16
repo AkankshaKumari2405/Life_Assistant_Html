@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            *{
+                box-sizing: border-box;
+            }
+            body{
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                background-color: #080946;
+            }
+            h2{
+                background-color: #080946;
+                text-align: center;
+                color: white;
+                margin: 10px;
+                border-radius: 10px;
+                padding : 10px;
+            }
+            .wrapper{
+                width: 60%;
+                background-color: white;
+                max-width: 800px;
+                margin-top: 1em;
+                padding : 3.12em 5em;
+                position: absolute;
+                transform: translateX(-50%);
+                left : 50%;
+                top : 1em;
+                border-radius: 0.5em;
+            }
+            .header {
+                padding: 10px;
+                margin: 10px;
+                border: 1px solid black;
+                text-align: center;
+                color: white;
+                border-radius: 10px;
+                margin-top: 50px;
+            }
+            .header:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+            input {
+                margin: 0;
+                border: none;
+                border-radius: 0;
+                width: 100%;
+                padding: 10px;
+                float: left;
+                font-size: 16px;
+            }
+            .addbutton {
+                padding: 10px;
+                background: #080946; 
+                color: #fff; 
+                text-align: center;
+                font-size: 16px;
+                cursor: pointer;
+                transition: 0.3s;
+                border: none;
+                border-radius: 1em;
+                margin-left: 250px;
+                display: block;
+                margin-top: 40px;
+                border: none;
+                width: 25%;
+            }
+            .addbutton:hover{
+                background-color: #499073;
+                color: rgb(255, 255, 255);
+            }
+            ul{
+                list-style-type: none;
+                margin: 0;
+                margin-top: 40px;
+                padding: 0;
+            }
+            ul li{
+                cursor : pointer;
+                position : relative;
+                padding : 12px 8px 12px 40px;
+                border-radius: 0.5em;
+                background:  #6478b9;
+                font-size : 22px;
+                transition: 0.2s;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+            ul li:nth-child(odd) {
+                background:  #adbdf2;
+            }
+            ul li:hover{
+                background: #410668;
+                color: white;
+            }
+            ul li.checked{
+                background: #960d7b;
+                color: #fff;
+                text-decoration: line-through;
+            }
+            ul li.checked::before{
+                content: '';
+                position: absolute;
+                border-color: #fff;
+                border-style: solid;
+                border-width: 0 2px 2px 0;
+                top: 10px;
+                left: 16px;
+                transform: rotate(45deg);
+                height: 15px;
+                width: 7px;
+            }
+            .close {
+                position: absolute;
+                right: 0;
+                top: 0;
+                padding: 12px 16px 12px 16px;
+            }
+            .close:hover {
+                background-color: #f44336;
+                color: white;
+            }
+
+        </style>
+        <title>To-Do List</title>
+    </head>
+    <body>
+        <div class = "wrapper">
+            <h2>TODAY'S TASKS</h2>
+            <div class="header">
+                <input type="text" id="inputtext" placeholder="Write Tasks..">
+            </div>
+            <div class="addbutton-wrapper">
+                <span onclick="newElement()" class="addbutton">Add</span>
+            </div>
+            <ul id="mytasks">
+            </ul>
+        </div>
+        <script>
+            var taskslist = document.getElementsByTagName("LI");
+            var i;
+            for (i = 0; i < taskslist.length; i++) {
+                var span = document.createElement("SPAN");
+                var txt = document.createTextNode("\u00D7");
+                span.className = "close";
+                span.appendChild(txt);
+                taskslist[i].appendChild(span);
+            }
+            var close = document.getElementsByClassName("close");
+            var i;
+            for (i = 0; i < close.length; i++) {
+                close[i].onclick = function() {
+                    var div = this.parentElement;
+                    div.style.display = "none";
+                }
+            }
+            var list = document.querySelector('ul');
+            list.addEventListener('click', function(ev) {
+                if (ev.target.tagName === 'LI') {
+                    ev.target.classList.toggle('checked');
+                }
+            }, false)
+            function newElement() {
+                var li = document.createElement("li");
+                var inputValue = document.getElementById("inputtext").value;
+                var t = document.createTextNode(inputValue);
+                li.appendChild(t);
+                if (inputValue === '') {
+                    alert("You must write something!");
+                } else {
+                    document.getElementById("mytasks").appendChild(li);
+                }
+                document.getElementById("inputtext").value = "";
+                var span = document.createElement("SPAN");
+                var txt = document.createTextNode("\u00D7");
+                span.className = "close";
+                span.appendChild(txt);
+                li.appendChild(span);
+                for (i = 0; i < close.length; i++) {
+                    close[i].onclick = function() {
+                        var div = this.parentElement;
+                        div.style.display = "none";
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>
